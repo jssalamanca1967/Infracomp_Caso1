@@ -5,14 +5,14 @@ public class Cliente extends Thread {
 	
 	private int numeroMensajes;
 	
-	private ArrayList mensajes;
+	private ArrayList<Mensaje> mensajes;
 	
 	private Buffer buffer;
 	
 	public Cliente(Buffer b)
 	{
 		numeroMensajes = (int) Math.random();
-		mensajes = new ArrayList();
+		mensajes = new ArrayList<Mensaje>();
 		buffer = b;
 		
 	}
@@ -21,7 +21,7 @@ public class Cliente extends Thread {
 	{
 		for(int i = 0; i < numeroMensajes; i++)
 		{
-			mensajes.add(new Mensaje((int) Math.random()));
+			mensajes.add(new Mensaje((int) Math.random(), this));
 			buffer.recibir((Mensaje) mensajes.get(i));
 		}
 	}

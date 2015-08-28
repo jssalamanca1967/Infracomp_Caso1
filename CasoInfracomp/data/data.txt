@@ -1,2 +1,3 @@
 clientes:8
 servidores:5
+numeroMensajes:10

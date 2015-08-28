@@ -14,17 +14,14 @@ public class Servidor {
 
 	public void run(){
 		
-		while(true){
-			while(!buffer.mensajeEnEspera)
-			{
-
-			}
-
-			Mensaje mensaje = buffer.enviar();
-			mensaje.modificarMensaje(INCREMENTO);
-			buffer.enviarRespuesta(mensaje);
+		while(!buffer.acabe()){
+			
+			Mensaje aResponder = buffer.enviar();
+			aResponder.cambiarRespondido();
+			buffer.enviarRespuesta(aResponder);
+			
 		}
-
+		
 	}
 
 }
