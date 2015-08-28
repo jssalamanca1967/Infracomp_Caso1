@@ -91,6 +91,10 @@ public class Buffer {
 	public ArrayList<Mensaje> darMensajesEnCola(){
 		return mensajesEnCola;
 	}
+	
+	public synchronized void salidaCliente(){
+		numClientes--;	
+	}
 
 	public static void main(String[] args) {
 		try {

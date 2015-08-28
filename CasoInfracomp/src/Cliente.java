@@ -24,6 +24,8 @@ public class Cliente extends Thread {
 			mensajes.add(new Mensaje((int) Math.random(), this));
 			buffer.recibir((Mensaje) mensajes.get(i));
 		}
+		
+		buffer.salidaCliente();
 	}
 
 }
