@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 
-public class Servidor {
+public class Servidor extends Thread{
 
 	private Buffer buffer;
 
@@ -16,10 +16,13 @@ public class Servidor {
 		
 		while(!buffer.acabe()){
 			
-			Mensaje aResponder = buffer.enviar();
-			aResponder.cambiarRespondido();
-			System.out.println("Se respondió al mensaje: " + aResponder.darNumSerie());
-			buffer.enviarRespuesta(aResponder);
+			if(buffer.darMensajesEnCola().size() > 0){
+
+				Mensaje aResponder = buffer.enviar();
+				aResponder.cambiarRespondido();
+				System.out.println("Se respondió al mensaje: " + aResponder.darNumSerie());
+				buffer.enviarRespuesta(aResponder);
+			}
 			
 		}
 		

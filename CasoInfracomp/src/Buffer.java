@@ -81,7 +81,7 @@ public class Buffer {
 
 	public synchronized void enviarRespuesta(Mensaje mensaje) {
 		mensaje.notify();
-//		notify();
+		notify();
 //		numeroClientes--;
 		capacidadActual--;
 	}
@@ -113,8 +113,22 @@ public class Buffer {
 			laInfo = lector.readLine();
 			info = laInfo.split(":");
 			numeroServidores = Integer.parseInt(info[1]);
+			
+			laInfo = lector.readLine();
+			info = laInfo.split(":");
+			int numeroMensajes = Integer.parseInt(info[1]);
 
 			Buffer buffer = new Buffer();
+			
+			for(int i = 0; i < numeroServidores; i++){
+				Servidor servidor = new Servidor(buffer);
+				servidor.start();
+			}
+			for(int i = 0; i < numeroClientes; i++){
+				Cliente cliente = new Cliente(buffer);
+				cliente.start();
+			}
+			
 
 		} catch (FileNotFoundException e) {
 			System.out.println("No se pudo acceder al archivo");
