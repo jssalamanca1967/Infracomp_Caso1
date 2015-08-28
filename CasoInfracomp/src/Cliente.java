@@ -21,6 +21,8 @@ public class Cliente extends Thread {
 	{
 		for(int i = 0; i < numeroMensajes; i++)
 		{
+			System.out.println("Mensaje número: " + i);
+			
 			Mensaje nuevo = new Mensaje((int) (Math.random()*10), this);
 			mensajes.add(nuevo);
 			buffer.recibir(nuevo);

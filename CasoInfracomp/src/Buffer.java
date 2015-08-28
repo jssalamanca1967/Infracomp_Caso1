@@ -9,6 +9,9 @@ public class Buffer {
 	private static int numeroClientes;
 
 	private static int numeroServidores;
+	
+	private Cliente[] clientes;
+	private Servidor[] servidores;
 
 	private final static int CAPACIDAD_MAXIMA = 10;
 
@@ -31,6 +34,18 @@ public class Buffer {
 		mensajesEnCola = new ArrayList<Mensaje>();
 		numClientes = numeroClientes;
 		numMensajesRecibidos = 0;
+		
+		clientes = new Cliente[numeroClientes];
+		servidores = new Servidor[numeroServidores];
+		
+		for(int i = 0; i < numeroServidores; i++){
+			servidores[i] = new Servidor(this);
+			servidores[i].start();
+		}
+		for(int i = 0; i < numeroClientes; i++){
+			clientes[i] = new Cliente(this);
+			clientes[i].start();
+		}
 
 	}
 	
@@ -49,6 +64,8 @@ public class Buffer {
 	 * @param mensaje
 	 */
 	public synchronized void recibir(Mensaje mensaje) {
+		
+		System.out.println("Entró");
 		
 		while (capacidadActual == CAPACIDAD_MAXIMA) {
 			try {
@@ -125,14 +142,6 @@ public class Buffer {
 
 			Buffer buffer = new Buffer();
 			
-			for(int i = 0; i < numeroServidores; i++){
-				Servidor servidor = new Servidor(buffer);
-				servidor.start();
-			}
-			for(int i = 0; i < numeroClientes; i++){
-				Cliente cliente = new Cliente(buffer);
-				cliente.start();
-			}
 			
 
 		} catch (FileNotFoundException e) {
