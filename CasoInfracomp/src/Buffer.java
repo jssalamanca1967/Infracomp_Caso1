@@ -68,7 +68,10 @@ public class Buffer {
 
 		while (!mensaje.fueRespondido()) {
 			try {
-				mensaje.wait();
+				synchronized (mensaje) {
+					mensaje.wait();
+				}
+				
 			} catch (InterruptedException e) {
 
 				e.printStackTrace();
@@ -80,7 +83,9 @@ public class Buffer {
 	}
 
 	public synchronized void enviarRespuesta(Mensaje mensaje) {
-		mensaje.notify();
+		synchronized (mensaje) {
+			mensaje.notify();
+		}
 		notify();
 //		numeroClientes--;
 		capacidadActual--;
