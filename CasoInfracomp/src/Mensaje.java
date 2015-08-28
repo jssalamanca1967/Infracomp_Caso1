@@ -6,6 +6,11 @@ public class Mensaje {
 	private Cliente cliente;
 	
 	/**
+	 * Numero consecutivo del mensaje - Para probar si sirve o no
+	 */
+	private int numSerie;
+	
+	/**
 	 * 
 	 * @param m. Mensaje
 	 * @param cliente. Cliente que hizo el mensaje
@@ -15,6 +20,14 @@ public class Mensaje {
 		mensaje = m;
 		respondido = false;
 		this.cliente = cliente;
+	}
+	
+	public int darNumSerie(){
+		return numSerie;
+	}
+	
+	public void asignarNumSerie(int numSerie){
+		this.numSerie = numSerie;
 	}
 	
 	public int darMensaje()

@@ -21,6 +21,8 @@ public class Buffer {
 	 * Número actual de clientes en el sistema, es decir, clientes que aún tienen mensajes por mandar y recibir
 	 */
 	private int numClientes;
+	
+	private int numMensajesRecibidos;
 
 	private ArrayList<Mensaje> mensajesEnCola;
 
@@ -28,6 +30,7 @@ public class Buffer {
 		capacidadActual = 0;
 		mensajesEnCola = new ArrayList<Mensaje>();
 		numClientes = numeroClientes;
+		numMensajesRecibidos = 0;
 
 	}
 	
@@ -58,7 +61,9 @@ public class Buffer {
 		// Cuando la capacidadActual es menor a la capacidad maxima
 		// Se aumenta los mensajes actuales y se encola el mensaje
 		
+		numMensajesRecibidos++;
 		capacidadActual++;
+		mensaje.asignarNumSerie(numMensajesRecibidos);
 		mensajesEnCola.add(mensaje);
 
 		while (!mensaje.fueRespondido()) {

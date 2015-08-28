@@ -18,6 +18,7 @@ public class Servidor {
 			
 			Mensaje aResponder = buffer.enviar();
 			aResponder.cambiarRespondido();
+			System.out.println("Se respondió al mensaje: " + aResponder.darNumSerie());
 			buffer.enviarRespuesta(aResponder);
 			
 		}

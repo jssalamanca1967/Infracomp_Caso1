@@ -11,7 +11,7 @@ public class Cliente extends Thread {
 	
 	public Cliente(Buffer b)
 	{
-		numeroMensajes = (int) Math.random();
+		numeroMensajes = (int) (Math.random()*100);
 		mensajes = new ArrayList<Mensaje>();
 		buffer = b;
 		
@@ -21,8 +21,11 @@ public class Cliente extends Thread {
 	{
 		for(int i = 0; i < numeroMensajes; i++)
 		{
-			mensajes.add(new Mensaje((int) Math.random(), this));
-			buffer.recibir((Mensaje) mensajes.get(i));
+			Mensaje nuevo = new Mensaje((int) (Math.random()*10), this);
+			mensajes.add(nuevo);
+			buffer.recibir(nuevo);
+			
+			System.out.println("Se recibió rta al mensaje: " + nuevo.darNumSerie());
 		}
 		
 		buffer.salidaCliente();
