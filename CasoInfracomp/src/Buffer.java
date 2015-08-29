@@ -78,14 +78,19 @@ public class Buffer {
 		// Cuando la capacidadActual es menor a la capacidad maxima
 		// Se aumenta los mensajes actuales y se encola el mensaje
 		
+		System.out.println("Antes de meter el mensaje");
+		
 		numMensajesRecibidos++;
 		capacidadActual++;
 		mensaje.asignarNumSerie(numMensajesRecibidos);
 		mensajesEnCola.add(mensaje);
 
+		System.out.println("Metio el mensaje");
 		while (!mensaje.fueRespondido()) {
 			try {
 				synchronized (mensaje) {
+					System.out.println("Dormido");
+					System.out.println(mensajesEnCola.size());
 					mensaje.wait();
 				}
 				
@@ -94,6 +99,8 @@ public class Buffer {
 				e.printStackTrace();
 			}
 		}
+		
+		System.out.println("Sale");
 
 //		mensajesEnCola.add(mensaje);
 

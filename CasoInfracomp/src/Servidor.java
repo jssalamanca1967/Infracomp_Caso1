@@ -15,13 +15,23 @@ public class Servidor extends Thread{
 	public void run(){
 		
 		while(!buffer.acabe()){
-			
+						
 			if(buffer.darMensajesEnCola().size() > 0){
+				
+				System.out.println("asdasd");
 
 				Mensaje aResponder = buffer.enviar();
 				aResponder.cambiarRespondido();
 				System.out.println("Se respondió al mensaje: " + aResponder.darNumSerie());
 				buffer.enviarRespuesta(aResponder);
+			}
+			else{
+				try {
+					sleep(100);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 			
 		}
