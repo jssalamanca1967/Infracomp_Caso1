@@ -5,6 +5,11 @@ public class Mensaje {
 	private boolean respondido;
 	private Cliente cliente;
 	
+	private Object cola;
+	
+
+	public final static int INCREMENTO = 50;
+	
 	/**
 	 * Numero consecutivo del mensaje - Para probar si sirve o no
 	 */
@@ -20,6 +25,7 @@ public class Mensaje {
 		mensaje = m;
 		respondido = false;
 		this.cliente = cliente;
+		cola = new Object();
 	}
 	
 	public int darNumSerie(){
@@ -39,11 +45,11 @@ public class Mensaje {
 		return respondido;
 	}
 	
-	public void cambiarRespondido(){
-		if(respondido)
-			respondido = false;
-		else
-			respondido = true;
+	public  void cambiarRespondido(){
+			
+		respondido = true;
+		
+		modificarMensaje(INCREMENTO);
 	}
 	
 	public Cliente darCliente(){
@@ -53,6 +59,23 @@ public class Mensaje {
 	public void modificarMensaje(int incremento)
 	{
 		mensaje += incremento;
+	}
+
+	public void esperarEnCola() {
+		synchronized (cola) {
+			try {
+				cola.wait();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}	
+		}	
+	}
+	
+	public void salirDeLaCola() {
+		synchronized (cola) {
+			cola.notify();	
+		}
 	}
 
 }
