@@ -77,11 +77,17 @@ public class Buffer {
 		capacidadActual++;
 		mensaje.asignarNumSerie(numMensajesRecibidos);
 		mensajesEnCola.add(mensaje);
-
+		
+		notify();
+		
 		while (!mensaje.fueRespondido()) {
 			try {
 				
-				mensaje.esperarEnCola();
+				System.out.println("Duerme Cliente");
+				synchronized (mensaje) {
+					mensaje.wait();
+				}
+				
 				
 				
 			} catch (Exception e) {
@@ -100,15 +106,31 @@ public class Buffer {
 		
 		mensaje.salirDeLaCola();
 		
-		notify();
+//		notify();
 		capacidadActual--;
 	}
 
 	public synchronized Mensaje enviar() {
-		if(mensajesEnCola.size() > 0)
-			return mensajesEnCola.remove(0);
-		else
-			return null;
+		
+		Mensaje aEnviar = null;
+		
+		while(mensajesEnCola.size() == 0){
+			try {
+				System.out.println("Duerme servidor");
+				wait();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		aEnviar = mensajesEnCola.remove(0);
+//		if(mensajesEnCola.size() > 0)
+//			return mensajesEnCola.remove(0);
+//		else
+//			return null;
+		
+		return aEnviar;
 	}
 	
 	public synchronized ArrayList<Mensaje> darMensajesEnCola(){

@@ -14,21 +14,25 @@ public class Servidor extends Thread{
 
 		while(!buffer.acabe()){
 
-			if(buffer.darMensajesEnCola().size() > 0){
-
-
-				if(buffer.darMensajesEnCola().size() > 0)
-				{
-					Mensaje aResponder = buffer.enviar();
-					aResponder.cambiarRespondido();
-					buffer.enviarRespuesta(aResponder);
-				}
-			}
-			else{
-				System.out.println("sede procesador");
-				yield();
-
-			}
+//			if(buffer.darMensajesEnCola().size() > 0){
+//
+//
+//				if(buffer.darMensajesEnCola().size() > 0)
+//				{
+//					Mensaje aResponder = buffer.enviar();
+//					aResponder.cambiarRespondido();
+//					buffer.enviarRespuesta(aResponder);
+//				}
+//			}
+//			else{
+//				System.out.println("sede procesador");
+//				yield();
+//
+//			}
+			
+			Mensaje aResponder = buffer.enviar();
+			aResponder.cambiarRespondido();
+			buffer.enviarRespuesta(aResponder);
 
 		}
 

@@ -11,7 +11,7 @@ public class Cliente extends Thread {
 	
 	public Cliente(Buffer b)
 	{
-		numeroMensajes = (int) (Math.random()*10);
+		numeroMensajes = 10;
 		mensajes = new ArrayList<Mensaje>();
 		buffer = b;
 		
@@ -19,8 +19,6 @@ public class Cliente extends Thread {
 	
 	public void run()
 	{
-		
-		System.out.println("EL NUMERO DE MENSAJES ES: " + numeroMensajes);
 		for(int i = 0; i < numeroMensajes; i++)
 		{
 			

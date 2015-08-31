@@ -61,15 +61,17 @@ public class Mensaje {
 		mensaje += incremento;
 	}
 
-	public void esperarEnCola() {
-		synchronized (cola) {
-			try {
-				cola.wait();
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}	
-		}	
+	public synchronized void esperarEnCola() throws InterruptedException {
+//		synchronized (cola) {
+//			try {
+//				cola.wait();
+//			} catch (InterruptedException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}	
+//		}	
+		
+		wait();
 	}
 	
 	public void salirDeLaCola() {
