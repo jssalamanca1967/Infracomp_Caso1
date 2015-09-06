@@ -1,3 +1,0 @@
-clientes:2
-servidores:3
-numeroMensajes:10
